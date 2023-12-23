@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-dir_doom="$HOME/dotfiles/doom-wads"
+set -euo pipefail
+
+dir_doom="$HOME/.local/share/doom"
 dir_iwad="$dir_doom/iwad"
 dir_pwad="$dir_doom/pwad"
 dir_soundfont="$dir_doom/soundfont"

@@ -1,0 +1,15 @@
+.TH DOOM 1 2023-12-23 LINUX
+
+.SH NAME
+doom \- When hell took over the world
+
+.SH SYNOPSIS
+.B doom
+[\fB\-\-iwad\fR \fIiwad\-name\fR]
+[\fB\-\-ewad\fR \fIewad\-name\fR]
+
+.SH DESCRIPTION
+.B doom
+runs the apropriate game specified in the arguments
+
+.SH SEE ALSO
