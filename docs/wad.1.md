@@ -8,14 +8,22 @@ NAME
 SYNOPSIS
 ========
 
-**wad find**
+**wad** [*\-\-help*] [*\-\-version*]
+
+**wad find** [*\-\-help*] [*\-\-version*]
+
+**wad list**  [*\-\-help*] [*\-\-version*]
+
 
 DESCRIPTION
 ===========
 
 **find**
 Finds the location of your WAD files and sorts them in your
-$XDG_DATA_HOME directory.
+"$XDG_DATA_HOME/doom-utils" directory.
+
+**list**
+Lists all known, saved wad files in
 
 SEE ALSO
 ========
