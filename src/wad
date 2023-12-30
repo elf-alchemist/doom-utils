@@ -32,21 +32,64 @@ sha1["ewad_nerve"]="3451288383fb16e196f273d9f85d58c1fda97bf4";
 sha1["ewad_sigil_2"]="ad2c6e8367afbeef74e9e09b6b1e4da88c0576b4";
 sha1["ewad_sigil_1"]="e2efdf379e1383c4e15c03de89063361897cd459";
 
-# Here be util commands
+supports_color () {
+    if command -v tput > /dev/null; then
+        if [[ "$(tput colors)" -ge 8 ]]; then
+            return 0;
+        fi;
+    elif [[ -n "$TERM" ]]; then
+        case "$TERM" in
+            (xterm|xterm-256color|rxvt|screen*)
+                return 0;
+                ;;
+        esac;
+    fi;
+    return 1;
+}
+
+if supports_color; then
+    # Basic colors
+    RESET="\e[0m";
+    FG_BLACK="\e[30m";
+    FG_RED="\e[31m";
+    FG_GREEN="\e[32m";
+    FG_YELLOW="\e[33m";
+    FG_BLUE="\e[34m";
+    FG_MAGENTA="\e[35m";
+    FG_CYAN="\e[36m";
+    FG_WHITE="\e[37m";
+    # Other text modifiers;
+    BOLD="\e[1m";
+    UNDERLINE="\e[4m";
+else
+    RESET="";
+    FG_BLACK="";
+    FG_RED="";
+    FG_GREEN="";
+    FG_YELLOW="";
+    FG_BLUE="";
+    FG_MAGENTA="";
+    FG_CYAN="";
+    FG_WHITE="";
+    # Other text modifiers;
+    BOLD="";
+    UNDERLINE="";
+fi;
+
 success() {
-    echo "[ Success ] $1";
+    echo -e "${FG_GREEN}Success${RESET} $1";
 }
 
 info() {
-    echo "[ Info ] $1";
+    echo -e "${FG_BLUE}Info${RESET} $1";
 }
 
 warn() {
-    echo "[ Warn ] $1";
+    echo -e "${FG_YELLOW}Warn${RESET} $1";
 }
 
 error() {
-    echo "[ Error ] $1";
+    echo -e "${FG_RED}Error${RESET} $1";
 }
 
 # Here be subcommands
@@ -58,7 +101,7 @@ help() {
 find() {
     info "Checking Steam directory.";
 
-    if ! [ -d "$dir_data/Steam" ];
+    if ! [[ -d "$dir_data/Steam" ]];
         then
             error "Steam directory does exit, have you installed it on the $XDG_DATA_HOME?";
             exit 1;
@@ -69,7 +112,7 @@ find() {
 
     info "Checking Doom installation.";
 
-    if ! [ -d "$dir_data/Steam/steamapps/common/Ultimate Doom" ];
+    if ! [[ -d "$dir_data/Steam/steamapps/common/Ultimate Doom" ]];
         then
             error "Could not find Ultimate Doom intallation.";
             error "Check your Ultimate Doom installation on the Steam Client.";
@@ -81,7 +124,7 @@ find() {
 
     info "Checking Doom 2 installation."
 
-    if ! [ -d "$dir_data/Steam/steamapps/common/Doom 2" ];
+    if ! [[ -d "$dir_data/Steam/steamapps/common/Doom 2" ]];
         then
             error "Could not find Doom 2 intallation.";
             error "Check your Doom 2 installation on the Steam Client.";
@@ -94,13 +137,16 @@ find() {
 }
 
 list() {
-    if ! [ -d "${dir["main"]}" ]; then mkdir -p "${dir["main"]}" ; fi;
+    if ! [[ -d "${dir["main"]}" ]]; then mkdir -p "${dir["main"]}" ; fi;
     ls -l "${dir["main"]}";
     return 0;
 }
 
 main() {
-    if [ $# -eq 0 ]; then return 1; fi;
+    if [ $# -eq 0 ];
+        then help "${@:2}";
+        exit $?;
+    fi;
 
     case "$1" in
         (find)
@@ -110,7 +156,7 @@ main() {
             list "${@:2}";
             ;;
         (*)
-            help "${@:2}";
+            unknown "${@:2}";
             ;;
     esac;
 
