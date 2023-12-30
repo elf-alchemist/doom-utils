@@ -54,32 +54,37 @@ help() {
 find() {
     info "Checking Steam directory.";
 
-    if ! [ -d "$dir_data/Steam" ]; then
-        error "Steam directory does exit, have you installed it on the $XDG_DATA_HOME?";
-        exit 1;
+    if ! [ -d "$dir_data/Steam" ];
+        then
+            error "Steam directory does exit, have you installed it on the $XDG_DATA_HOME?";
+            exit 1;
+        else
+            success "Steam directory found.";
     fi
 
-    success "Steam directory found.";
 
     info "Checking Doom installation.";
 
-    if ! [ -d "$dir_data/Steam/steamapps/common/Ultimate Doom" ]; then
-        error "Could not find Ultimate Doom intallation.";
-        error "Check your Ultimate Doom installation on the Steam Client.";
-        error "Make sure to install in your \$XDG_DATA_HOME";
+    if ! [ -d "$dir_data/Steam/steamapps/common/Ultimate Doom" ];
+        then
+            error "Could not find Ultimate Doom intallation.";
+            error "Check your Ultimate Doom installation on the Steam Client.";
+            error "Make sure to install in your \$XDG_DATA_HOME";
+        else
+            success "Ultimate Doom steam installation found.";
     fi;
 
-    success "Ultimate Doom steam installation found.";
 
     info "Checking Doom 2 installation."
 
-    if ! [ -d "$dir_data/Steam/steamapps/common/Doom 2" ]; then
-        error "Could not find Doom 2 intallation.";
-        error "Check your Doom 2 installation on the Steam Client.";
-        error "Make sure to install in your \$XDG_DATA_HOME";
+    if ! [ -d "$dir_data/Steam/steamapps/common/Doom 2" ];
+        then
+            error "Could not find Doom 2 intallation.";
+            error "Check your Doom 2 installation on the Steam Client.";
+            error "Make sure to install in your \$XDG_DATA_HOME";
+        else
+            success "Doom 2 steam installation found.";
     fi;
-
-    success "Doom 2 steam installation found.";
 
     return 0;
 }
@@ -94,16 +99,17 @@ main() {
     if [ $# -eq 0 ]; then return 1; fi;
 
     case "$1" in
-    find)
-        find "${@:2}";
-        ;;
-    list)
-        list "${@:2}";
-        ;;
-    *)
-        help "${@:2}";
-        ;;
+        (find)
+            find "${@:2}";
+            ;;
+        (list)
+            list "${@:2}";
+            ;;
+        (*)
+            help "${@:2}";
+            ;;
     esac;
+
     return 0;
 }
 
