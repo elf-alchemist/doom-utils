@@ -7,11 +7,14 @@ all:
 install:
 	@mkdir -p $(DESTDIR)$(PREFIX)/bin
 	@mkdir -p $(DESTDIR)$(DIR_MAN)/man1
-	@cp -p src/wad-finder $(DESTDIR)$(PREFIX)/bin/wad-finder
-	@cp -p man/wad-finder.1 $(DESTDIR)$(DIR_MAN)/man1/wad-finder.1
-	@chmod 755 $(DESTDIR)$(PREFIX)/bin/wad-finder
+	@mkdir -p $(DESTDIR)$(DIR_MAN)/man5
+	@install src/wad   --target-directory=$(DESTDIR)$(PREFIX)/bin
+	@install man/wad.1 --target-directory=$(DESTDIR)$(DIR_MAN)/man1
+	@install man/wad.1 --target-directory=$(DESTDIR)$(DIR_MAN)/man1
+	@chmod 755 $(DESTDIR)$(PREFIX)/bin/wad
 
 uninstall:
-	@rm -rf $(DESTDIR)$(PREFIX)/bin/wad-finder
-	@rm -rf $(DESTDIR)$(DIR_MAN)/man1/wad-finder.1
+	@rm -rf $(DESTDIR)$(PREFIX)/bin/wad
+	@rm -rf $(DESTDIR)$(DIR_MAN)/man1/wad.1
+	@rm -rf $(DESTDIR)$(DIR_MAN)/man1/wad.5
 
