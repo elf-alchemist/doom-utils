@@ -7,26 +7,30 @@ set -o nounset;
 set -o pipefail;
 IFS=$'\n\t'
 
+declare -A dir;
+declare -A iwad;
+declare -A ewad;
+declare -A sha1;
+
 dir_data="${XDG_DATA_HOME:="$HOME/.local/share"}";
 
-dir_main="$dir_data/doom-utils";
+dir["main"]="$dir_data/doom-utils";
+dir["iwad"]="$dir_data/doom-utils/iwad";
+dir["ewad"]="$dir_data/doom-utils/ewad";
 
-dir_iwad="$dir_main/iwad";
-dir_ewad="$dir_main/ewad";
+iwad["doom_2"]="$dir_data/doom-utils/iwad/doom2.wad";
+iwad["doom_1"]="$dir_data/doom-utils/iwad/doom1.wad";
 
-iwad_doom_2="$dir_iwad/doom2.wad";
-iwad_doom_1="$dir_iwad/doom1.wad";
+ewad["nerve"]="$dir_data/doom-utils/ewad/nerve.wad";
+ewad["sigil_1"]="$dir_data/doom-utils/ewad/sigil1.wad";
+ewad["sigil_2"]="$dir_data/doom-utils/ewad/sigil2.wad";
 
-ewad_nerve="$dir_ewad/nerve.wad";
-ewad_sigil_1="$dir_ewad/sigil1.wad";
-ewad_sigil_2="$dir_ewad/sigil2.wad";
+sha1["iwad_doom_2"]="7ec7652fcfce8ddc6e801839291f0e28ef1d5ae7";
+sha1["iwad_doom_1"]="9b07b02ab3c275a6a7570c3f73cc20d63a0e3833";
 
-iwad_doom_2_sha1="7ec7652fcfce8ddc6e801839291f0e28ef1d5ae7";
-iwad_doom_1_sha1="9b07b02ab3c275a6a7570c3f73cc20d63a0e3833";
-
-ewad_nerve_sha1="3451288383fb16e196f273d9f85d58c1fda97bf4";
-ewad_sigil_2_sha1="ad2c6e8367afbeef74e9e09b6b1e4da88c0576b4";
-ewad_sigil_1_sha1="e2efdf379e1383c4e15c03de89063361897cd459";
+sha1["ewad_nerve"]="3451288383fb16e196f273d9f85d58c1fda97bf4";
+sha1["ewad_sigil_2"]="ad2c6e8367afbeef74e9e09b6b1e4da88c0576b4";
+sha1["ewad_sigil_1"]="e2efdf379e1383c4e15c03de89063361897cd459";
 
 # Here be util commands
 success() {
@@ -90,8 +94,8 @@ find() {
 }
 
 list() {
-    if ! [ -d "$dir_main" ]; then mkdir -p "$dir_main" ; fi;
-    ls -l "$dir_main";
+    if ! [ -d "${dir["main"]}" ]; then mkdir -p "${dir["main"]}" ; fi;
+    ls -l "${dir["main"]}";
     return 0;
 }
 
