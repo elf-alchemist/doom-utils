@@ -91,7 +91,7 @@ error() {
 # Here be subcommands
 help() {
     echo "Help" >&1;
-    return 0;
+    exit 0;
 }
 
 find() {
@@ -138,22 +138,18 @@ list() {
     return 0;
 }
 
+unknown() {
+    echo "Unknown subcommand: $1 try again" >&2;
+    exit 1;
+}
+
 main() {
-    if [ $# -eq 0 ];
-        then help "${@:2}";
-        exit $?;
-    fi;
+    if [ $# -eq 0 ]; then help "$@"; fi;
 
     case "$1" in
-        (find)
-            find "${@:2}";
-            ;;
-        (list)
-            list "${@:2}";
-            ;;
-        (*)
-            unknown "${@:2}";
-            ;;
+        (find) find "$@";;
+        (list) list "$@";;
+        (*) unknown "$@";;
     esac;
 
     return 0;
