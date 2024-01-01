@@ -1,13 +1,18 @@
-PREFIX ?= /usr
-DIR_MAN ?= $(PREFIX)/share/man
+PREFIX    ?= /usr
+DIR_BIN   = $(PREFIX)/bin
+DIR_MAN   = $(PREFIX)/share/man
+DIR_MAN_1 = $(PREFIX)/share/man/man1
 
 all:
 	@echo Run \'make install\' to install doom-utils.
 
-lint:
-	@shellcheck src/wad
+format:
+	@shfmt
 
-build:
+lint:
+	@shellcheck
+
+man:
 	@echo "Building man pages"
 	@pandoc --standalone --to=man --output=man/wad.1 docs/wad.1.md
 	@pandoc --standalone --to=man --output=man/wad.5 docs/wad.5.md
