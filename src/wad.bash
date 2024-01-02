@@ -5,7 +5,10 @@ set -o errtrace
 set -o errexit
 set -o nounset
 set -o pipefail
+
 IFS=$'\n\t'
+LC_ALL=C
+LANG=C
 
 declare -A dir
 declare -A iwad
@@ -13,7 +16,7 @@ declare -A ewad
 declare -A sha1
 
 dir_data="${XDG_DATA_HOME:="$HOME/.local/share"}"
-dir_main="$dir_data/doom-utils"
+dir_main="$dir_data/doom"
 
 dir["main"]="$dir_main"
 dir["iwad"]="$dir_main/iwad"
@@ -35,9 +38,15 @@ sha1["ewad_sigil_2"]="ad2c6e8367afbeef74e9e09b6b1e4da88c0576b4"
 
 supports_color()  {
     if command -v tput > /dev/null; then
-        if [[ "$(tput colors)" -ge 8 ]]; then return 0; fi
+        if [[ "$(tput colors)" -ge 8 ]]; then
+            return 0
+        fi
     elif [[ -n "$TERM" ]]; then
-        case "$TERM" in  xterm | xterm-256color | rxvt | screen*) return 0 ;; esac
+        case "$TERM" in
+            xterm | xterm-256color | rxvt | screen*)
+                return 0
+                ;;
+        esac
     fi
     return 1
 }
@@ -95,41 +104,39 @@ help() {
 }
 
 find() {
-    info "Checking Steam directory."
-
     if ! [[ -d "$dir_data/Steam" ]]; then
-            error "Steam directory does exit, have you installed it on the \$XDG_DATA_HOME?"
-            exit 1
+        error "Steam directory does exit, have you installed it on the \$XDG_DATA_HOME?"
+        exit 1
     else
-            success "Steam directory found."
+        success "Steam directory found."
     fi
 
-    info "Checking Doom installation."
-
     if ! [[ -d "$dir_data/Steam/steamapps/common/Ultimate Doom" ]]; then
-            error "Could not find Ultimate Doom intallation."
-            error "Check your Ultimate Doom installation on the Steam Client."
-            error "Make sure to install in your \$XDG_DATA_HOME"
+        error "Could not find Ultimate Doom intallation."
+        error "Check your Ultimate Doom installation on the Steam Client."
+        error "Make sure to install in your \$XDG_DATA_HOME"
     else
-            success "Ultimate Doom steam installation found."
+        success "Ultimate Doom steam installation found."
     fi
 
     info "Checking Doom 2 installation."
 
     if ! [[ -d "$dir_data/Steam/steamapps/common/Doom 2" ]]; then
-            error "Could not find Doom 2 intallation."
-            error "Check your Doom 2 installation on the Steam Client."
-            error "Make sure to install in your \$XDG_DATA_HOME"
+        error "Could not find Doom 2 intallation."
+        error "Check your Doom 2 installation on the Steam Client."
+        error "Make sure to install in your \$XDG_DATA_HOME"
     else
-            success "Doom 2 steam installation found."
+        success "Doom 2 steam installation found."
     fi
 
     return 0
 }
 
 list() {
-    if ! [[ -d "${dir["main"]}" ]]; then mkdir -p "${dir["main"]}";  fi
-    ls -l "${dir["main"]}"
+    if ! [[ -d "${dir['main']}" ]]; then
+        mkdir -p "${dir['main']}"
+    fi
+
     return 0
 }
 
@@ -142,9 +149,15 @@ main() {
     if [ $# -eq 0 ]; then help "$@"; fi
 
     case "$1" in
-         find) find "$@" ;;
-         list) list "$@" ;;
-         *) unknown "$@" ;;
+         find)
+             find "$@"
+             ;;
+         list)
+             list "$@"
+             ;;
+         *)
+             unknown "$@"
+             ;;
     esac
 
     return 0
