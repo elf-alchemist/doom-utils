@@ -10,12 +10,12 @@ all:
 
 format:
 	@echo "Running formatting task ..."
-	@shfmt --write src/*.sh
+	@shfmt --write src/*.bash
 	@echo "Finished formatting task"
 
 lint:
 	@echo "Running linting task ..."
-	@shellcheck --shell=bash --format=gcc src/*.sh
+	@shellcheck --shell=bash --format=gcc src/*.bash
 	@echo "Finished linting task"
 
 man:
