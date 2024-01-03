@@ -8,11 +8,11 @@ NAME
 SYNOPSIS
 ========
 
-**wad** [*\-\-help*] [*\-\-version*]
+**wad**
 
-**wad find** [*\-\-help*] [*\-\-version*]
+**wad find**
 
-**wad list**  [*\-\-help*] [*\-\-version*]
+**wad list**
 
 
 DESCRIPTION

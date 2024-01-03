@@ -17,6 +17,11 @@ depending on whether they are "Internal wads", the base game, or "Patch
 wads", essentially mods that override previous content or add new
 content on top of the previous one.
 
+CREDITS
+=======
+
+DoomWiki \<https://doomwiki.com/wiki/WAD\>
+
 SEE ALSO
 ========
 
