@@ -3,7 +3,7 @@ DIR_BIN   = $(PREFIX)/bin
 DIR_MAN   = $(PREFIX)/share/man
 DIR_MAN_1 = $(PREFIX)/share/man/man1
 
-.PHONY: all
+.PHONY: all format lint man install uninstall
 
 all:
 	@echo "Run 'make install' to install doom-utils."
@@ -20,8 +20,8 @@ lint:
 
 man:
 	@echo "Running man pages task ..."
-	@pandoc --standalone --to=man --output=man/wad.1 docs/wad.1.md
-	@pandoc --standalone --to=man --output=man/wad.5 docs/wad.5.md
+	@pandoc --standalone --to=man --output=man/wad.1 man/wad.1.md
+	@pandoc --standalone --to=man --output=man/wad.5 man/wad.5.md
 	@echo "Finished man pages task"
 
 install:
