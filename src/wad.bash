@@ -9,13 +9,14 @@ set -o pipefail
 IFS=$'\n\t'
 LC_ALL=C
 LANG=C
+ARGS="$@"
 
 declare -A dir
 declare -A iwad
 declare -A ewad
 declare -A sha1
 
-dir_data="${XDG_DATA_HOME:="$HOME/.local/share"}"
+dir_data="${XDG_DATA_HOME:='$HOME/.local/share'}"
 dir_main="$dir_data/doom"
 
 dir["main"]="$dir_main"
@@ -99,7 +100,7 @@ error() {
 
 # Here be subcommands
 help() {
-    echo "Help" >&1
+    echo "Usage: wad SUBCOMMAND" >&1
     exit 0
 }
 
@@ -136,31 +137,35 @@ list() {
     if ! [[ -d "${dir['main']}" ]]; then
         mkdir -p "${dir['main']}"
     fi
-
     return 0
 }
 
 unknown() {
-    echo "Unknown subcommand: $1 try again" >&2
+    echo "Unknown subcommand: ${ARGS[1]} try again" >&2
     exit 1
 }
 
 main() {
-    if [ $# -eq 0 ]; then help "$@"; fi
+    if [[ $# -eq 0 ]]; then
+        help;
+    fi
 
-    case "$1" in
+    case "${ARGS[1]}" in
          find)
-             find "$@"
+             find
              ;;
          list)
-             list "$@"
+             list
+             ;;
+         version)
+             version
              ;;
          *)
-             unknown "$@"
+             unknown
              ;;
     esac
-
     return 0
 }
 
-main "$@"
+main
+
