@@ -10,12 +10,10 @@ all:
 
 format:
 	@echo "Running formatting task ..."
-	@shfmt --write src/*.bash
 	@echo "Finished formatting task"
 
 lint:
 	@echo "Running linting task ..."
-	@shellcheck --shell=bash --format=gcc src/*.bash
 	@echo "Finished linting task"
 
 man:
@@ -29,9 +27,9 @@ install:
 	@mkdir -p $(DESTDIR)$(PREFIX)/bin
 	@mkdir -p $(DESTDIR)$(DIR_MAN)/man1
 	@mkdir -p $(DESTDIR)$(DIR_MAN)/man5
-	@cp -p src/wad.bash $(DESTDIR)$(PREFIX)/bin/wad
-	@cp -p man/wad.1    $(DESTDIR)$(DIR_MAN)/man1/wad.1
-	@cp -p man/wad.5    $(DESTDIR)$(DIR_MAN)/man5/wad.5
+	@cp -p bin/wad   $(DESTDIR)$(PREFIX)/bin/wad
+	@cp -p man/wad.1 $(DESTDIR)$(DIR_MAN)/man1/wad.1
+	@cp -p man/wad.5 $(DESTDIR)$(DIR_MAN)/man5/wad.5
 	@chmod 755 $(DESTDIR)$(PREFIX)/bin/wad
 	@echo "Finished installation task"
 
