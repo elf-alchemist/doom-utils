@@ -1,3 +1,4 @@
+---@param path string
 local function fileExists(path)
     local file = io.open(path, "r")
 
@@ -9,13 +10,15 @@ local function fileExists(path)
     end
 end
 
+---@param src  string
+---@param dest string
 local function moveFile(src, dest)
-    local status, result, code = os.execute('cp "' .. src .. '" "' .. dest .. '"')
+    local status, result, code = os.execute(string.format('cp "%s" "%s"', src, dest))
 
 	if not status then
-        print('Error: ' .. result .. ':' .. code)
+        print(string.format('Error:%s->%s', result, code))
     else
-        print('File ' .. src .. ' moved successfully.')
+        print(string.format('File %s moved successfully.', src))
     end
 end
 
@@ -60,8 +63,10 @@ local function find()
 			if success then
 				print('Successfully created directory')
 			else
-				print('Could not crete directory: ' .. path)
-				print('Recieved result of ' .. result .. ':' .. code)
+				print(
+					string.format('Could not crete directory: %s', path),
+					string.format('Recieved result of %s:%s', result, code)
+				)
 			end
 		end
 	end
@@ -71,9 +76,11 @@ local function find()
 		local steamFileExists = fileExists(path)
 
 		if not steamFileExists then
-			print('Error: file for \'' .. name .. '\' was not found.')
-			print('Please check your Steam installation of \'' .. name .. '\'')
-			print('Check the path \'' .. path .. '\'')
+			print(
+				string.format('Error: file for \'%s\' was not found.', name),
+				string.format('Please check your Steam installation of \'%s\'', name),
+				string.format('Check the path \'%s\'', path)
+			)
 		else
 			moveFile(path, localPath)
 		end
@@ -86,7 +93,7 @@ local function help()
 	'    wad [-v|--version]\n' ..
 	'    wad <command> [<subcommand>] [-h|--help]\n' ..
 	'\n' ..
-	'Managing DooM wads in POSIX environments\n' ..
+	'Manage Doom wads in POSIX environments\n' ..
 	'\n' ..
 	'For more information, visit https://github.com/elf-alchemist/doom-utils')
 end
@@ -104,7 +111,9 @@ local function main()
 	if (func ~= nil) then
 		func()
 	else
-		io.stderr:write('Command not found: \'' .. cmd .. '\' try \'wad --help\'\n')
+		io.stderr:write(
+			string.format('Command not found: \'%s\' try \'wad help\'\n', cmd)
+		)
 	end
 end
 

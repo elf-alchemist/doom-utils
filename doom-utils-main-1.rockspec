@@ -2,13 +2,13 @@ rockspec_format = "1.1"
 package = "doom-utils"
 version = "main-1"
 source = {
-   url = "https://github.com/elf-alchemist/doom-utils.git",
+   url = "https://github.com/elf-alchemist/doom-utils",
    branch = "main",
 }
 description = {
    summary = "Doom utilities for *nix systems",
    detailed = "",
-   homepage = "https://github.com/elf-alchemist/doom-utils.git",
+   homepage = "https://github.com/elf-alchemist/doom-utils",
    license = "Apache-2.0"
 }
 dependencies = {
