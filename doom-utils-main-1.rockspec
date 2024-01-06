@@ -1,5 +1,6 @@
+rockspec_format = "1.1"
 package = "doom-utils"
-version = "main"
+version = "main-1"
 source = {
    url = "https://github.com/elf-alchemist/doom-utils.git",
    branch = "main",
