@@ -16,9 +16,9 @@ local function moveFile(src, dest)
     local status, result, code = os.execute(string.format('cp "%s" "%s"', src, dest))
 
 	if not status then
-        print(string.format('Error:%s->%s', result, code))
+        io.stdout:write(string.format('Error:%s->%s', result, code))
     else
-        print(string.format('File %s moved successfully.', src))
+        io.stdout:write(string.format('File %s moved successfully.', src))
     end
 end
 
@@ -34,18 +34,18 @@ local function find()
 	}
 
 	local dir = {
-		main = data_dir .. '/doom',
-		iwad = data_dir .. '/doom/iwad',
-		ewad = data_dir .. '/doom/ewad',
-		pwad = data_dir .. '/doom/pwad',
+		main      = data_dir .. '/doom-utils',
+		doom_iwad = data_dir .. '/doom-utils/doom.iwad',
+		doom_ewad = data_dir .. '/doom-utils/doom.ewad',
+		doom_pwad = data_dir .. '/doom-utils/doom.pwad',
 	}
 
 	local wad = {
-		doom1  = dir.iwad .. '/doom1.wad',
-		doom2  = dir.iwad .. '/doom2.wad',
-		sigil1 = dir.ewad .. '/sigil1.wad',
-		sigil2 = dir.ewad .. '/sigil2.wad',
-		nrftl  = dir.ewad .. '/nrftl.wad',
+		doom1  = dir.doom_iwad .. '/doom1.wad',
+		doom2  = dir.doom_iwad .. '/doom2.wad',
+		sigil1 = dir.doom_ewad .. '/sigil1.wad',
+		sigil2 = dir.doom_ewad .. '/sigil2.wad',
+		nrftl  = dir.doom_ewad .. '/nrftl.wad',
 	}
 
 	local sha1 = {
@@ -61,11 +61,11 @@ local function find()
 			local success, result, code = os.execute('mkdir -p ' .. path)
 
 			if success then
-				print('Successfully created directory')
+				io.stdout:write('Successfully created directory\n')
 			else
-				print(
-					string.format('Could not crete directory: %s', path),
-					string.format('Recieved result of %s:%s', result, code)
+				io.stderr:write(
+					string.format('Could not crete directory: %s\n', path),
+					string.format('Recieved result of %s:%s\n', result, code)
 				)
 			end
 		end
@@ -76,10 +76,10 @@ local function find()
 		local steamFileExists = fileExists(path)
 
 		if not steamFileExists then
-			print(
-				string.format('Error: file for \'%s\' was not found.', name),
-				string.format('Please check your Steam installation of \'%s\'', name),
-				string.format('Check the path \'%s\'', path)
+			io.stderr:write(
+				string.format('Error: file for \'%s\' was not found.\n', name),
+				string.format('Please check your Steam installation of \'%s\'\n', name),
+				string.format('Check the path \'%s\'\n', path)
 			)
 		else
 			moveFile(path, localPath)
@@ -88,19 +88,32 @@ local function find()
 end
 
 local function help()
-	print(
-	'Usage:\n' ..
-	'    wad [-v|--version]\n' ..
-	'    wad <command> [<subcommand>] [-h|--help]\n' ..
-	'\n' ..
-	'Manage Doom wads in POSIX environments\n' ..
-	'\n' ..
-	'For more information, visit https://github.com/elf-alchemist/doom-utils')
+	io.stdout:write(
+		string.format('Usage:\n'),
+		string.format('    wad find\n'),
+		string.format('    wad help\n'),
+		string.format('    wad version\n'),
+		string.format('\n'),
+		string.format('Manage Doom wads in POSIX environments\n'),
+		string.format('For more information, visit https://github.com/elf-alchemist/doom-utils\n'),
+		string.format('\n')
+	)
+end
+
+local function version()
+	io.stdout:write(
+		string.format('Doom utils - version 0.0.1\n'),
+		string.format('\n'),
+		string.format('Utilities to work with doom engine games, this package includes:\n'),
+		string.format('    wad - Manage, and work with, wad files\n'),
+		string.format('\n')
+	)
 end
 
 local command_list = {
-	find = find,
-	help = help,
+	find    = find,
+	help    = help,
+	version = version,
 }
 
 local function main()
