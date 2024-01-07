@@ -1,3 +1,5 @@
+#!/usr/bin/env lua
+
 ---@param path string
 local function fileExists(path)
     local file = io.open(path, "r")
@@ -117,16 +119,26 @@ local command_list = {
 }
 
 local function main()
+
+	for i = 0, #arg do
+		if arg[i] == "--help" then
+			help()
+			os.exit(0)
+		end
+	end
+
 	local cmd = arg[1]
 
 	local func = command_list[cmd]
 
-	if (func ~= nil) then
+	if func then
 		func()
+		os.exit(0)
 	else
 		io.stderr:write(
 			string.format("Command not found: '%s' try 'wad help'\n", cmd)
 		)
+		os.exit(1)
 	end
 end
 
