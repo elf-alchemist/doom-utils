@@ -1,4 +1,6 @@
-% wad(1) POSIX | Wad file utility suite
+% wad(1) POSIX | Doom utility suite
+% Guilherme M Miranda \<alchemist.software@proton.me\>
+% 2024-01-07
 
 NAME
 ====
@@ -12,18 +14,22 @@ SYNOPSIS
 
 **wad find**
 
-**wad list**
+**wad help**
 
+**wad version**
 
 DESCRIPTION
 ===========
 
 **find**
-Finds the location of your WAD files and sorts them in your
-"$XDG_DATA_HOME/doom-utils" directory.
+Finds the location of your WAD files and sorts them in your local data
+directory "$XDG_DATA_HOME/doom-utils".
 
-**list**
-Lists all known, saved wad files in
+**help**
+Shows basic help info, links for further help and copyright notice, then exits.
+
+**version**
+Shows version info and copyright notice, then exits.
 
 SEE ALSO
 ========
