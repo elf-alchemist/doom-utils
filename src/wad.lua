@@ -43,10 +43,10 @@ end
 ---@param src  string
 ---@param dest string
 local function moveFile(src, dest)
-	local status, result, code = os.execute(string.format("cp '%s' '%s'", src, dest))
+	local successful, result, code = os.execute(string.format("cp '%s' '%s'", src, dest))
 
-	if not status then
-		io.stdout:write(string.format("Error:%s->%s", result, code))
+	if not successful then
+		io.stderr:write(string.format("Error:%s->%s", result, code))
 	else
 		io.stdout:write(string.format("File %s moved successfully.", src))
 	end
@@ -82,12 +82,13 @@ local function find()
 			moveFile(path, localPath)
 		end
 	end
+
+	return 0
 end
 
 local function path()
-	local doom_wad_path = string.format("export DOOMWADPATH='%s:%s:%s';\n", dir.pwad, dir.ewad, dir.iwad)
-	local doom_wad_dir = string.format("export DOOMWADDIR='%s';\n", dir.main);
-	io.stdout:write(doom_wad_dir, doom_wad_path)
+	io.stdout:write(string.format("export DOOMWADDIR='%s';\n", env_doom_dir))
+	return 0
 end
 
 local function help()
@@ -102,6 +103,7 @@ local function help()
 		string.format("For more information, visit https://github.com/elf-alchemist/doom-utils\n"),
 		string.format("\n")
 	)
+	return 0
 end
 
 local function version()
@@ -112,6 +114,7 @@ local function version()
 		string.format("    wad - Manage, and work with, wad files\n"),
 		string.format("\n")
 	)
+	return 0
 end
 
 local command_list = {
@@ -134,8 +137,8 @@ local function main()
 	local func = command_list[cmd]
 
 	if func then
-		func()
-		os.exit(0)
+		local status = func()
+		os.exit(status)
 	else
 		io.stderr:write(string.format("Command not found: '%s' try 'wad help'\n", cmd))
 		os.exit(1)
