@@ -52,20 +52,23 @@ local function moveFile(src, dest)
 	end
 end
 
-local function find()
-	if not fileExists(dir.main) then
-		for _, path in pairs(dir) do
-			local success, result, code = os.execute("mkdir -p " .. path)
+---@param path string
+local function makeDirectory(path)
+	local success, result, code = os.execute("mkdir -p " .. path)
 
-			if success then
-				io.stdout:write("Successfully created directory\n")
-			else
-				io.stderr:write(
-					string.format("Could not crete directory: %s\n", path),
-					string.format("Recieved result of %s:%s\n", result, code)
-				)
-			end
-		end
+	if success then
+		io.stdout:write("Successfully created directory\n")
+	else
+		io.stderr:write(
+			string.format("Could not crete directory: %s\n", path),
+			string.format("Recieved result of %s:%s\n", result, code)
+		)
+	end
+end
+
+local function find()
+	if not fileExists(env_doom_dir) then
+		makeDirectory(env_doom_dir)
 	end
 
 	for name, path in pairs(steam_path) do
