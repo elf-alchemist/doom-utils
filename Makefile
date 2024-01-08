@@ -10,10 +10,12 @@ all:
 
 format:
 	@echo "Running formatting task ..."
+	@stylua src/
 	@echo "Finished formatting task"
 
 lint:
 	@echo "Running linting task ..."
+	@luacheck src/
 	@echo "Finished linting task"
 
 man:
