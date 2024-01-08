@@ -3,10 +3,17 @@ DIR_BIN   = $(PREFIX)/bin
 DIR_MAN   = $(PREFIX)/share/man
 DIR_MAN_1 = $(PREFIX)/share/man/man1
 
-.PHONY: all format lint man install uninstall
+.DEFAULT: default
+.PHONY: default format lint man install uninstall
 
-all:
-	@echo "Run 'make install' to install doom-utils."
+default:
+	@echo "Available tasks:"
+	@echo ""
+	@echo "    make format    =>   check syntax"
+	@echo "    make lint      =>   statically analysis"
+	@echo "    make man       =>   regenerate man pages after writing markdown"
+	@echo "    make install   =>   locally install doom-utils"
+	@echo ""
 
 format:
 	@echo "Running formatting task ..."
