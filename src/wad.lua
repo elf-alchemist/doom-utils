@@ -1,28 +1,23 @@
 #!/usr/bin/env lua
+
 local env_home = os.getenv("HOME")
 local env_data_dir = os.getenv("XDG_DATA_HOME") or (env_home .. "/.local/share")
 
-local steam_dir = env_data_dir .. "/Steam/steamapps/common"
+local env_steam_dir = env_data_dir .. "/Steam/steamapps/common"
+local env_doom_dir = env_data_dir .. "/games/doom"
 
 local steam_path = {
-	doom1 = steam_dir .. "/Ultimate Doom/base/DOOM.WAD",
-	doom2 = steam_dir .. "/Doom 2/base/DOOM2.WAD",
+	doom1 = env_steam_dir .. "/Ultimate Doom/base/DOOM.WAD",
+	doom2 = env_steam_dir .. "/Doom 2/base/DOOM2.WAD",
 	nrftl = nil,
 }
 
-local dir = {
-	main = env_data_dir .. "/doom-utils",
-	iwad = env_data_dir .. "/doom-utils/iwad",
-	ewad = env_data_dir .. "/doom-utils/ewad",
-	pwad = env_data_dir .. "/doom-utils/pwad",
-}
-
 local wad = {
-	doom1 = dir.iwad .. "/doom1.wad",
-	doom2 = dir.iwad .. "/doom2.wad",
-	sigil1 = dir.ewad .. "/sigil1.wad",
-	sigil2 = dir.ewad .. "/sigil2.wad",
-	nrftl = dir.ewad .. "/nrftl.wad",
+	doom1 = env_doom_dir .. "/doom1.wad",
+	doom2 = env_doom_dir .. "/doom2.wad",
+	sigil1 = env_doom_dir .. "/sigil1.wad",
+	sigil2 = env_doom_dir .. "/sigil2.wad",
+	nrftl = env_doom_dir .. "/nrftl.wad",
 }
 
 local sha1 = {
