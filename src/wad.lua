@@ -5,6 +5,11 @@ local env_data_dir = os.getenv("XDG_DATA_HOME") or (env_home .. "/.local/share")
 
 local env_steam_dir = env_data_dir .. "/Steam/steamapps/common"
 local env_doom_dir = env_data_dir .. "/games/doom"
+local env_doom_path = env_doom_dir
+	.. ":/usr/local/share/games/doom"
+	.. ":/usr/local/share/doom"
+	.. ":/usr/share/games/doom"
+	.. ":/usr/share/doom"
 
 local steam_path = {
 	doom1 = env_steam_dir .. "/Ultimate Doom/base/DOOM.WAD",
@@ -90,7 +95,10 @@ local function find()
 end
 
 local function path()
-	io.stdout:write(string.format("export DOOMWADDIR='%s';\n", env_doom_dir))
+	io.stdout:write(
+		string.format("export DOOMWADDIR='%s';\n", env_doom_dir),
+		string.format("export DOOMWADPATH='%s';\n", env_doom_path)
+	)
 	return 0
 end
 
@@ -98,11 +106,12 @@ local function help()
 	io.stdout:write(
 		string.format("Usage:\n"),
 		string.format("    wad find\n"),
+		string.format("    wad check\n"),
 		string.format("    wad path\n"),
 		string.format("    wad help\n"),
 		string.format("    wad version\n"),
 		string.format("\n"),
-		string.format("Manage Doom wads in POSIX environments\n"),
+		string.format("Manage Doom wads in *nix environments\n"),
 		string.format("For more information, visit https://github.com/elf-alchemist/doom-utils\n"),
 		string.format("\n")
 	)
