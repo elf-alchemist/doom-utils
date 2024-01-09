@@ -94,6 +94,22 @@ local function find()
 	return 0
 end
 
+local function check()
+	for name, path in pairs(steam_path) do
+		local steamFileExists = fileExists(path)
+
+		if not steamFileExists then
+			io.stderr:write(
+				string.format("Error: file for '%s' was not found.\n", name),
+				string.format("Please check your Steam installation of '%s'\n", name)
+			)
+		else
+			io.stdout:write(string.format("Successfully found file %s.\n", name), string.format(" - %s\n", path))
+		end
+	end
+	return 0
+end
+
 local function path()
 	io.stdout:write(
 		string.format("export DOOMWADDIR='%s';\n", env_doom_dir),
@@ -131,6 +147,7 @@ end
 
 local command_list = {
 	find = find,
+	check = check,
 	path = path,
 	help = help,
 	version = version,
