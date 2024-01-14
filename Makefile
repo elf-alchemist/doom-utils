@@ -22,7 +22,7 @@ format:
 
 lint:
 	@echo "Running linting task ..."
-	@luacheck src/
+	@shellcheck --color=auto --enable=all --shell=bash src/*
 	@echo "Finished linting task"
 
 man:
