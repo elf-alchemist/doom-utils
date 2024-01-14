@@ -9,7 +9,7 @@ set -o pipefail
 IFS=$'\n\t'
 LC_ALL=C
 LANG=C
-ARGS="$@"
+ARGS=$*
 
 declare -A dir
 declare -A iwad
@@ -37,7 +37,7 @@ sha1["ewad_nerve"]="3451288383fb16e196f273d9f85d58c1fda97bf4"
 sha1["ewad_sigil_1"]="e2efdf379e1383c4e15c03de89063361897cd459"
 sha1["ewad_sigil_2"]="ad2c6e8367afbeef74e9e09b6b1e4da88c0576b4"
 
-supports_color()  {
+function supports_color()  {
     if command -v tput > /dev/null; then
         if [[ "$(tput colors)" -ge 8 ]]; then
             return 0
@@ -82,24 +82,24 @@ else
     UNDERLINE=""
 fi
 
-success() {
+function success() {
     echo -e "${FG_GREEN}Success${RESET} $1" >&1
 }
 
-info() {
+function info() {
     echo -e "${FG_BLUE}Info${RESET} $1" >&1
 }
 
-warn() {
+function warn() {
     echo -e "${FG_YELLOW}Warn${RESET} $1" >&2
 }
 
-error() {
+function error() {
     echo -e "${FG_RED}Error${RESET} $1" >&2
 }
 
 # Here be subcommands
-help() {
+function help() {
     echo "Usage: wad SUBCOMMAND" >&1
     exit 0
 }
@@ -133,19 +133,19 @@ check() {
     return 0
 }
 
-list() {
-    if ! [[ -d "${dir['main']}" ]]; then
-        mkdir -p "${dir['main']}"
+function list() {
+    if ! [[ -d "${dir["main"]}" ]]; then
+        mkdir -p "${dir["main"]}"
     fi
     return 0
 }
 
-unknown() {
+function unknown() {
     echo "Unknown subcommand: ${ARGS[1]} try again" >&2
     exit 1
 }
 
-main() {
+function main() {
     if [[ $# -eq 0 ]]; then
         help;
     fi
