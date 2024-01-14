@@ -47,6 +47,9 @@ function supports_color()  {
             xterm | xterm-256color | rxvt | screen*)
                 return 0
                 ;;
+	    *)
+                return 1
+                ;;
         esac
     fi
     return 1
