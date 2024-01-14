@@ -17,7 +17,7 @@ default:
 
 format:
 	@echo "Running formatting task ..."
-	@stylua src/
+	@shfmt --write src/
 	@echo "Finished formatting task"
 
 lint:
