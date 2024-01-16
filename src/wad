@@ -15,7 +15,7 @@ declare -A dir
 declare -A sha1
 
 dir_data="${XDG_DATA_HOME:="${HOME}/.local/share"}"
-dir_main="${dir_data}/games/doom"
+dir_main="${DOOMWADDIR:="${dir_data}/games/doom"}"
 
 dir["doom_2"]="${dir_main}/doom2.wad"
 dir["doom_1"]="${dir_main}/doom1.wad"
@@ -27,7 +27,7 @@ dir["sigil_2"]="${dir_main}/sigil2.wad"
 sha1["iwad_doom_2"]="7ec7652fcfce8ddc6e801839291f0e28ef1d5ae7"
 sha1["iwad_doom_1"]="9b07b02ab3c275a6a7570c3f73cc20d63a0e3833"
 
-sha1["ewad_nerve"]="3451288383fb16e196f273d9f85d58c1fda97bf4"
+sha1["ewad_nrftl"]="3451288383fb16e196f273d9f85d58c1fda97bf4"
 sha1["ewad_sigil_1"]="e2efdf379e1383c4e15c03de89063361897cd459"
 sha1["ewad_sigil_2"]="ad2c6e8367afbeef74e9e09b6b1e4da88c0576b4"
 
@@ -142,33 +142,24 @@ function list()
 	return 0
 }
 
-function unknown()
-{
-	echo "Unknown subcommand: ${ARGS[1]} try again" >&2
-	exit 1
-}
-
 function main()
 {
-	if [[ $# -eq 0 ]]; then
-		help
-	fi
-
-	case "${ARGS[1]}" in
-		check)
-			check
-			;;
-		list)
-			list
-			;;
-		version)
-			version
-			;;
-		*)
-			unknown
-			;;
-	esac
-	return 0
+	while getopts "f:d:" option; do
+		case "$option" in
+			f)
+				echo "$OPTARG"
+				;;
+			d)
+				echo "$OPTARG"
+				;;
+			\?)
+				echo "Option -$OPTARG in invalid"
+				;;
+			:)
+				echo "Option -$OPTARG requires an argument"
+				;;
+		esac
+	done
 }
 
 main "$@"
