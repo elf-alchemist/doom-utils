@@ -12,23 +12,17 @@ LANG=C
 ARGS=$*
 
 declare -A dir
-declare -A iwad
-declare -A ewad
 declare -A sha1
 
 dir_data="${XDG_DATA_HOME:="${HOME}/.local/share"}"
-dir_main="${dir_data}/doom"
+dir_main="${dir_data}/games/doom"
 
-dir["main"]="${dir_main}"
-dir["iwad"]="${dir_main}/iwad"
-dir["ewad"]="${dir_main}/ewad"
+dir["doom_2"]="${dir_main}/doom2.wad"
+dir["doom_1"]="${dir_main}/doom1.wad"
 
-iwad["doom_2"]="${dir_main}/iwad/doom2.wad"
-iwad["doom_1"]="${dir_main}/iwad/doom1.wad"
-
-ewad["nerve"]="${dir_main}/ewad/nerve.wad"
-ewad["sigil_1"]="${dir_main}/ewad/sigil1.wad"
-ewad["sigil_2"]="${dir_main}/ewad/sigil2.wad"
+dir["nrftl"]="${dir_main}/nrftl.wad"
+dir["sigil_1"]="${dir_main}/sigil1.wad"
+dir["sigil_2"]="${dir_main}/sigil2.wad"
 
 sha1["iwad_doom_2"]="7ec7652fcfce8ddc6e801839291f0e28ef1d5ae7"
 sha1["iwad_doom_1"]="9b07b02ab3c275a6a7570c3f73cc20d63a0e3833"
@@ -142,8 +136,8 @@ check()
 
 function list()
 {
-	if ! [[ -d "${dir["main"]}" ]]; then
-		mkdir -p "${dir["main"]}"
+	if ! [[ -d "${dir_main}" ]]; then
+		mkdir -p "${dir_main}"
 	fi
 	return 0
 }
