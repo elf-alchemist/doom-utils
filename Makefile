@@ -36,7 +36,7 @@ install:
 	@mkdir -p $(DESTDIR)$(PREFIX)/bin
 	@mkdir -p $(DESTDIR)$(DIR_MAN)/man1
 	@mkdir -p $(DESTDIR)$(DIR_MAN)/man5
-	@cp -p bin/wad   $(DESTDIR)$(PREFIX)/bin/wad
+	@cp -p src/wad   $(DESTDIR)$(PREFIX)/bin/wad
 	@cp -p man/wad.1 $(DESTDIR)$(DIR_MAN)/man1/wad.1
 	@cp -p man/wad.5 $(DESTDIR)$(DIR_MAN)/man5/wad.5
 	@chmod 755 $(DESTDIR)$(PREFIX)/bin/wad
