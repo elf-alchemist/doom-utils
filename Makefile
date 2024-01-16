@@ -7,13 +7,23 @@ DIR_MAN_1 = $(PREFIX)/share/man/man1
 .PHONY: default format lint man install uninstall
 
 default:
-	@echo "Available tasks:"
-	@echo ""
-	@echo "    make format     =>    syntax check"
-	@echo "    make lint       =>    static analysis"
-	@echo "    make man        =>    build man pages after writing markdown"
-	@echo "    make install    =>    install doom-utils"
-	@echo ""
+	@echo "Available tasks:\n" \
+	"\n" \
+	"    make tools      =>    list necessary tools\n" \
+	"    make format     =>    syntax check\n" \
+	"    make lint       =>    static analysis\n" \
+	"    make man        =>    build man pages\n" \
+	"    make install    =>    install doom-utils\n" \
+
+tools:
+	@echo \
+	"Tools required, minimum versions:\n" \
+	"\n" \
+	"    GNU Coreutils - 9.1\n" \
+	"    GNU Make      - 4.3\n" \
+	"    shellcheck    - 0.9.0\n" \
+	"    shfmt         - 3.6.0\n" \
+	"    pandoc        - 2.17.1.1\n"
 
 format:
 	@echo "Formatting ..."
