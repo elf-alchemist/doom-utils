@@ -1,6 +1,7 @@
 Better Doom on the command line.
 
-Simple set of utility programs for interacting with Doom engine games on the POSIX command line interface.
+Simple set of utility programs for interacting with Doom engine games, built on BASH.
 
-To start developing, run 'make' for basic start.
+To start developing, run 'make' for available tasks,
+and run 'make tools' to list the necessary CLI tools to work.
 
