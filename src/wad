@@ -145,18 +145,18 @@ function list()
 function main()
 {
 	while getopts "f:d:" option; do
-		case "$option" in
+		case "${option}" in
 			f)
-				echo "$OPTARG"
+				echo "${OPTARG}"
 				;;
 			d)
-				echo "$OPTARG"
+				echo "${OPTARG}"
 				;;
 			\?)
-				echo "Option -$OPTARG in invalid"
+				echo "Option -${OPTARG} in invalid"
 				;;
 			:)
-				echo "Option -$OPTARG requires an argument"
+				echo "Option -${OPTARG} requires an argument"
 				;;
 		esac
 	done
