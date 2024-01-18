@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+# Bash strict mode
+set -o errtrace
+set -o errexit
+set -o nounset
+set -o pipefail
+
+IFS=$'\n\t'
+LANG=C
+
+NAME="$(basename "$0")"
+VERSION="${DOOM_UTILS_VERSION:-"0.0.1-dev"}"
+
+DIR="${DOOMWADDIR:-"${XDG_DATA_HOME}/games/doom"}"
+PATHS=(
+	"${DIR}"
+	/usr/local/share/games/doom
+	/usr/local/share/doom
+	/usr/share/games/doom
+	/usr/share/doom
+)
+PATH="$(echo "${PATHS[@]}" | tr ' ' ':')"
+
+
+function path()
+{
+	echo "export DOOMWADDIR=\"${DIR}\""
+	echo "export DOOMWADPATH=\"${PATH}\""
+	exit 1
+}
+
+function print_help()
+{
+	echo "Usage: wadpath [OPTIONS]"
+	echo "Options:"
+	echo "    -h  Print this help message"
+	echo "    -v  Print version information"
+	echo ""
+	exit 0
+
+}
+
+function print_version()
+{
+	echo "${NAME} - DoomUtils ${VERSION}"
+	exit 0
+}
+
+function main()
+{
+	while getopts ":hv" option; do
+		case "${option}" in
+			h)
+				print_help
+				;;
+			v)
+				print_version
+				;;
+			\?)
+				echo "Option -${OPTARG} is invalid" >&2
+				exit 1
+				;;
+			:)
+				echo "Option -${OPTARG} requires an argument" >&2
+				exit 1
+				;;
+		esac
+	done
+	path
+}
+
+main "$@"
