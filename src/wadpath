@@ -10,24 +10,24 @@ IFS=$'\n\t'
 LANG=C
 
 NAME="$(basename "$0")"
-VERSION="${DOOM_UTILS_VERSION:-"0.0.1-dev"}"
+VERSION="${DOOM_UTILS_VERSION:-"dev"}"
 
-DIR="${DOOMWADDIR:-"${XDG_DATA_HOME}/games/doom"}"
+DATA_DIR=${XDG_DATA_HOME:-"${HOME}/.local/share"}
+DOOM_DIR="${DOOMWADDIR:-"${DATA_DIR}/games/doom"}"
 PATHS=(
-	"${DIR}"
+	"${DOOM_DIR}"
 	/usr/local/share/games/doom
 	/usr/local/share/doom
 	/usr/share/games/doom
 	/usr/share/doom
 )
-PATH="$(echo "${PATHS[@]}" | tr ' ' ':')"
-
+DOOM_PATH="$(echo "${PATHS[@]}" | tr ' ' ':')"
 
 function path()
 {
-	echo "export DOOMWADDIR=\"${DIR}\""
-	echo "export DOOMWADPATH=\"${PATH}\""
-	exit 1
+	echo "export DOOMWADDIR=\"${DOOM_DIR}\""
+	echo "export DOOMWADPATH=\"${DOOM_PATH}\""
+	exit 0
 }
 
 function print_help()
