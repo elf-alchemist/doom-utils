@@ -14,17 +14,17 @@ VERSION="${DOOM_UTILS_VERSION:-"dev"}"
 
 DATA_DIR="${XDG_DATA_HOME:="${HOME}/.local/share"}"
 
-declare -A sha1
+declare -A sha1=(
+	["doom_2"]="7ec7652fcfce8ddc6e801839291f0e28ef1d5ae7"
+	["doom_1"]="9b07b02ab3c275a6a7570c3f73cc20d63a0e3833"
+	["tnt"]="9fbc66aedef7fe3bae0986cdb9323d2b8db4c9d3"
+	["plutonia"]="90361e2a538d2388506657252ae41aceeb1ba360"
+	["nerve"]="3451288383fb16e196f273d9f85d58c1fda97bf4"
+	["sigil_1"]="e2efdf379e1383c4e15c03de89063361897cd459"
+	["sigil_2"]="ad2c6e8367afbeef74e9e09b6b1e4da88c0576b4"
+)
 
-sha1["doom_2"]="7ec7652fcfce8ddc6e801839291f0e28ef1d5ae7"
-sha1["doom_1"]="9b07b02ab3c275a6a7570c3f73cc20d63a0e3833"
-sha1["tnt"]="9fbc66aedef7fe3bae0986cdb9323d2b8db4c9d3"
-sha1["plutonia"]="90361e2a538d2388506657252ae41aceeb1ba360"
-sha1["nerve"]="3451288383fb16e196f273d9f85d58c1fda97bf4"
-sha1["sigil_1"]="e2efdf379e1383c4e15c03de89063361897cd459"
-sha1["sigil_2"]="ad2c6e8367afbeef74e9e09b6b1e4da88c0576b4"
-
-function check()
+function __check()
 {
 	if ! [[ -d "${DATA_DIR}/Steam" ]]; then
 		echo "Steam directory does not exit\n"\
@@ -41,17 +41,10 @@ function check()
 		echo "Ultimate Doom steam installation found."
 	fi
 
-	if ! [[ -d "${DATA_DIR}/Steam/steamapps/common/Doom 2" ]]; then
-		echo "Could not find Doom 2 intallation.\n"\
-		"Check your Doom 2 installation on the Steam Client.\n" >&2
-	else
-		echo "Doom 2 steam installation found."
-	fi
-
-	return 0
+	exit 0
 }
 
-function print_help()
+function __help()
 {
 	echo "Usage: ${NAME} [OPTIONS]"
 	echo "Options:"
@@ -62,10 +55,22 @@ function print_help()
 
 }
 
-function print_version()
+function __version()
 {
 	echo "${NAME} - DoomUtils ${VERSION}"
 	exit 0
+}
+
+function __invalid()
+{
+	echo "Option -${OPTARG} is invalid" >&2
+	exit 1
+}
+
+function __require_args()
+{
+	echo "Option -${OPTARG} requires an argument" >&2
+	exit 1
 }
 
 function main()
@@ -73,22 +78,20 @@ function main()
 	while getopts ":hv" option; do
 		case "${option}" in
 			h)
-				print_help
+				__help
 				;;
 			v)
-				print_version
+				__version
 				;;
 			\?)
-				echo "Option -${OPTARG} is invalid" >&2
-				exit 1
+				__invalid
 				;;
 			:)
-				echo "Option -${OPTARG} requires an argument" >&2
-				exit 1
+				__require_args
 				;;
 		esac
 	done
-	check
+	__check
 }
 
 main "$@"

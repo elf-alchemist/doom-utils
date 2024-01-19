@@ -23,14 +23,14 @@ PATHS=(
 )
 DOOM_PATH="$(echo "${PATHS[@]}" | tr ' ' ':')"
 
-function path()
+function __path()
 {
 	echo "export DOOMWADDIR=\"${DOOM_DIR}\""
 	echo "export DOOMWADPATH=\"${DOOM_PATH}\""
 	exit 0
 }
 
-function print_help()
+function __help()
 {
 	echo "Usage: wadpath [OPTIONS]"
 	echo "Options:"
@@ -41,10 +41,22 @@ function print_help()
 
 }
 
-function print_version()
+function __version()
 {
 	echo "${NAME} - DoomUtils ${VERSION}"
 	exit 0
+}
+
+function __invalid()
+{
+	echo "Option -${OPTARG} is invalid" >&2
+	exit 1
+}
+
+function __required_args()
+{
+	echo "Option -${OPTARG} requires an argument" >&2
+	exit 1
 }
 
 function main()
@@ -52,22 +64,20 @@ function main()
 	while getopts ":hv" option; do
 		case "${option}" in
 			h)
-				print_help
+				__help
 				;;
 			v)
-				print_version
+				__version
 				;;
 			\?)
-				echo "Option -${OPTARG} is invalid" >&2
-				exit 1
+				__invalid
 				;;
 			:)
-				echo "Option -${OPTARG} requires an argument" >&2
-				exit 1
+				__required_args
 				;;
 		esac
 	done
-	path
+	__path
 }
 
 main "$@"
