@@ -33,8 +33,9 @@ lint:
 
 man:
 	@echo "Building man pages ..."
-	@pandoc --standalone --to=man --output=man/wad.1 man/wad.1.md
 	@pandoc --standalone --to=man --output=man/wad.5 man/wad.5.md
+	@pandoc --standalone --to=man --output=man/wadpath.1 man/wadpath.1.md
+	@pandoc --standalone --to=man --output=man/wadcheck.1 man/wadcheck.1.md
 	@echo "Build done"
 
 install:
