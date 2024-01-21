@@ -10,7 +10,7 @@ IFS=$'\n\t'
 LANG=C
 
 NAME="$(basename "$0")"
-VERSION="${DOOM_UTILS_VERSION:-"dev"}"
+VERSION="alpha"
 
 DATA_DIR="${XDG_DATA_HOME:-"${HOME}/.local/share"}"
 STEAMROOT="${STEAMROOT:-"${DATA_DIR}/Steam"}"
@@ -62,7 +62,7 @@ function __check()
 	for wad in "${!path[@]}"; do
 		if [[ -e "${path[$wad]}" ]]; then
 			echo "Found $wad installation."
-			else
+		else
 			echo "Didn't find $wad"
 		fi
 	done
@@ -70,10 +70,23 @@ function __check()
 	exit 0
 }
 
+function __man()
+{
+	if command -v man > /dev/null; then
+		echo "Opening man page for $NAME..."
+		man wadpath.1
+		exit $?
+	else
+		echo "Man not found! What?" >&2
+		exit 1
+	fi
+}
+
 function __help()
 {
 	echo "Usage: ${NAME} [OPTIONS]"
 	echo "Options:"
+	echo "    -m  Open manual pages"
 	echo "    -h  Print this help message"
 	echo "    -v  Print version information"
 	echo ""
@@ -101,8 +114,11 @@ function __require_args()
 
 function main()
 {
-	while getopts ":hv" option; do
+	while getopts ":mhv" option; do
 		case "${option}" in
+			m)
+				__man
+				;;
 			h)
 				__help
 				;;
