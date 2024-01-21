@@ -1,42 +1,39 @@
 % wad(1) POSIX | Doom utility suite
 % Guilherme M Miranda \<alchemist.software@proton.me\>
-% 2024-01-08
+% 2024-01-21
 
 # NAME
 
-**wad** \- General purpose tool to work with WAD files.
+**wadpath** \- Retrieve WAD installation paths.
 
 # SYNOPSIS
 
-**wad**
+**wadpath [-m]**
 
-**wad find**
+**wadpath [-h]**
 
-**wad path**
-
-**wad help**
-
-**wad version**
+**wadpath [-v]**
 
 # DESCRIPTION
 
-**find**
-Finds the location of your WAD files and sorts them in your local data directory "$XDG_DATA_HOME/doom-utils".
-
-**path**
-Returns the default $DOOMWADDIR and $DOOMWADPATH environment variables, run it as the following:
+**wadpath**
+Returns the default DOOMWADDIR and DOOMWADPATH environment variables, to use in your favorite source port.
+To use proprely, add the following line to your '.bashrc' or equivalent.
 
 ```bash
-bash-5.2$ eval "$(wad path)"
+eval "$(wadpath)"
 ```
 
-**help**
-Shows basic help info, links for further help and copyright notice, then exits.
+**-m, manual**
+Opens manual pages directly from **wadpath**, then exits.
 
-**version**
-Shows version info and copyright notice, then exits.
+**-h, help**
+Shows basic help information, links for further help, then exits.
+
+**-v, version**
+Shows version information, then exits.
 
 # SEE ALSO
 
-wad(5)
+wadcheck(1) wad(5)
 
