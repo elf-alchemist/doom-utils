@@ -8,11 +8,11 @@
 
 # SYNOPSIS
 
-**wadpath [-m]**
+**wadpath -m**
 
-**wadpath [-h]**
+**wadpath -h**
 
-**wadpath [-v]**
+**wadpath -v**
 
 # DESCRIPTION
 

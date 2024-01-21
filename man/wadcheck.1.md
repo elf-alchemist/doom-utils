@@ -1,42 +1,34 @@
 % wad(1) POSIX | Doom utility suite
 % Guilherme M Miranda \<alchemist.software@proton.me\>
-% 2024-01-08
+% 2024-01-21
 
 # NAME
 
-**wad** \- General purpose tool to work with WAD files.
+**wadcheck** \- Install doom WAD files in your system.
 
 # SYNOPSIS
 
-**wad**
+**wadcheck -m**
 
-**wad find**
+**wadcheck -h**
 
-**wad path**
-
-**wad help**
-
-**wad version**
+**wadcheck -v**
 
 # DESCRIPTION
 
-**find**
-Finds the location of your WAD files and sorts them in your local data directory "$XDG_DATA_HOME/doom-utils".
+**wadcheck**
+Validates and installs Doom WAD files from you Steam directory in your local $XDG_DATA_HOME.
 
-**path**
-Returns the default $DOOMWADDIR and $DOOMWADPATH environment variables, run it as the following:
+**-m, manual**
+Opens manual pages directly from **wadcheck**, then exits.
 
-```bash
-bash-5.2$ eval "$(wad path)"
-```
+**-h, help**
+Shows basic help information, links for further help, then exits.
 
-**help**
-Shows basic help info, links for further help and copyright notice, then exits.
-
-**version**
-Shows version info and copyright notice, then exits.
+**-v, version**
+Shows version information, then exits.
 
 # SEE ALSO
 
-wad(5)
+wadpath(1) wad(5)
 

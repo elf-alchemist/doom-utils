@@ -14,42 +14,32 @@
 . ftr VB CB
 . ftr VBI CBI
 .\}
-.TH "wad" "1" "2024-01-08" "POSIX" "Doom utility suite"
+.TH "wad" "1" "2024-01-21" "POSIX" "Doom utility suite"
 .hy
 .SH NAME
 .PP
-\f[B]wad\f[R] - General purpose tool to work with WAD files.
+\f[B]wadcheck\f[R] - Install doom WAD files in your system.
 .SH SYNOPSIS
 .PP
-\f[B]wad\f[R]
+\f[B]wadcheck -m\f[R]
 .PP
-\f[B]wad find\f[R]
+\f[B]wadcheck -h\f[R]
 .PP
-\f[B]wad path\f[R]
-.PP
-\f[B]wad help\f[R]
-.PP
-\f[B]wad version\f[R]
+\f[B]wadcheck -v\f[R]
 .SH DESCRIPTION
 .PP
-\f[B]find\f[R] Finds the location of your WAD files and sorts them in
-your local data directory \[lq]$XDG_DATA_HOME/doom-utils\[rq].
+\f[B]wadcheck\f[R] Validates and installs Doom WAD files from you Steam
+directory in your local $XDG_DATA_HOME.
 .PP
-\f[B]path\f[R] Returns the default $DOOMWADDIR and $DOOMWADPATH
-environment variables, run it as the following:
-.IP
-.nf
-\f[C]
-bash-5.2$ eval \[dq]$(wad path)\[dq]
-\f[R]
-.fi
+\f[B]-m, manual\f[R] Opens manual pages directly from
+\f[B]wadcheck\f[R], then exits.
 .PP
-\f[B]help\f[R] Shows basic help info, links for further help and
-copyright notice, then exits.
+\f[B]-h, help\f[R] Shows basic help information, links for further help,
+then exits.
 .PP
-\f[B]version\f[R] Shows version info and copyright notice, then exits.
+\f[B]-v, version\f[R] Shows version information, then exits.
 .SH SEE ALSO
 .PP
-wad(5)
+wadpath(1) wad(5)
 .SH AUTHORS
 Guilherme M Miranda <alchemist.software\[at]proton.me>.
