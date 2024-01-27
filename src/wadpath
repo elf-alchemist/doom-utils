@@ -33,7 +33,7 @@ function __path()
 function __man()
 {
 	if command -v man > /dev/null; then
-		echo "Opening man page for $NAME..."
+		echo "Opening man page for ${NAME}..."
 		man wadpath.1
 		exit $?
 	else
@@ -72,6 +72,12 @@ function __required_args()
 	exit 1
 }
 
+function __unreachable
+{
+	echo "How did you get here?" >&2
+	exit 1
+}
+
 function main()
 {
 	while getopts ":mhv" option; do
@@ -91,10 +97,12 @@ function main()
 			:)
 				__required_args
 				;;
+			*)
+				__unreachable
+				;;
 		esac
 	done
 	__path
 }
 
 main "$@"
-
