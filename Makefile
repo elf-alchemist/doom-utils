@@ -1,8 +1,8 @@
-PREFIX   ?= /usr/local
-DIR_BIN  = $(PREFIX)/bin
-DIR_MAN  = $(PREFIX)/share/man
-DIR_MAN1 = $(PREFIX)/share/man/man1
-DIR_MAN5 = $(PREFIX)/share/man/man5
+PREFIX   ?= $(DESTDIR)/usr/local
+DIR_BIN  =  $(PREFIX)/bin
+DIR_MAN  =  $(PREFIX)/share/man
+DIR_MAN1 =  $(PREFIX)/share/man/man1
+DIR_MAN5 =  $(PREFIX)/share/man/man5
 
 .DEFAULT: default
 .PHONY: default format lint man install uninstall
@@ -40,23 +40,22 @@ man:
 
 install:
 	@echo "Installing ..."
-	@mkdir -p $(DESTDIR)$(DIR_BIN)
-	@mkdir -p $(DESTDIR)$(DIR_MAN1)
-	@mkdir -p $(DESTDIR)$(DIR_MAN5)
-	@cp -p src/wadpath    $(DESTDIR)$(DIR_BIN)/wadpath
-	@cp -p src/wadcheck   $(DESTDIR)$(DIR_BIN)/wadcheck
-	@cp -p man/wadpath.1  $(DESTDIR)$(DIR_MAN1)/wadpath.1
-	@cp -p man/wadcheck.1 $(DESTDIR)$(DIR_MAN1)/wadcheck.1
-	@cp -p man/wad.5      $(DESTDIR)$(DIR_MAN5)/wad.5
-	@chmod 755 $(DESTDIR)$(DIR_BIN)/wadcheck
-	@chmod 755 $(DESTDIR)$(DIR_BIN)/wadpath
+	@mkdir -p $(DIR_BIN)
+	@mkdir -p $(DIR_MAN1)
+	@mkdir -p $(DIR_MAN5)
+	@install src/wadpath    $(DIR_BIN)  -m 755
+	@install src/wadcheck   $(DIR_BIN)  -m 755
+	@install man/wad.5      $(DIR_MAN5) -m 644
+	@install man/wadpath.1  $(DIR_MAN1) -m 644
+	@install man/wadcheck.1 $(DIR_MAN1) -m 644
 	@echo "Finished installing"
 
 uninstall:
 	@echo "Uninstalling ..."
-	@rm -rf $(DESTDIR)$(DIR_BIN)/wadcheck
-	@rm -rf $(DESTDIR)$(DIR_BIN)/wadpath
-	@rm -rf $(DESTDIR)$(DIR_MAN1)/wad.1
-	@rm -rf $(DESTDIR)$(DIR_MAN5)/wad.5
+	@rm -rf $(DIR_BIN)/wadpath
+	@rm -rf $(DIR_BIN)/wadcheck
+	@rm -rf $(DIR_MAN5)/wad.5
+	@rm -rf $(DIR_MAN1)/wadpath.1
+	@rm -rf $(DIR_MAN1)/wadcheck.1
 	@echo "Finished uninstalling"
 
